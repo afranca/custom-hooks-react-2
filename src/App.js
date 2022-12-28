@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import Tasks from './components/Tasks/Tasks';
-import NewTask from './components/NewTask/NewTask';
-import useHttp from './hooks/use-http';
+import Tasks from "./components/Tasks/Tasks";
+import NewTask from "./components/NewTask/NewTask";
+import useHttp from "./hooks/use-http";
 
 function App() {
-
   const [tasks, setTasks] = useState([]);
-
-
 
   const { isLoading, error, sendRequest: fetchTasks } = useHttp();
 
   useEffect(() => {
     const requestConfig = {
-      url: 'https://react-http-72a7f-default-rtdb.europe-west1.firebasedatabase.app/tasks.json', 
-      method: 'GET'
-    }
-  
+      url: "https://react-http-72a7f-default-rtdb.europe-west1.firebasedatabase.app/tasks.json",
+      method: "GET",
+    };
+
     // Transform from Firebase format to required format
     const transformTasks = (tasksObj) => {
       const loadedTasks = [];
@@ -26,8 +23,6 @@ function App() {
       }
       setTasks(loadedTasks);
     };
-  
-
 
     fetchTasks(requestConfig, transformTasks);
   }, []);
